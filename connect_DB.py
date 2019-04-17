@@ -1,21 +1,23 @@
 import psycopg2
 
-#���������� � ��
-def connectToDB(request, db_file, db_user, db_password, localhost)
-    conn = psycopg2.connect(dbname=db_file, 
-							user=db_user, 
-							password=db_password, 
-							host=localhost)
-    cursor = conn.cursor()
-    
-    cursor.execute(request)#('''SELECT * 
+#Соединение с БД
+def connectToDB(request):#(request, db_file, db_user, db_password, localhost)
+	conn = psycopg2.connect(dbname='db_file', 
+							user='db_user', 
+							password='db_password', 
+							host='localhost')
+	cursor = conn.cursor()
+	
+	cursor.execute(request)#('''SELECT * 
 							#   FROM table''')
-    
-    cursor.close()
-    conn.close()
+	answer = cursor
+	cursor.close()
+	conn.close()
+	return answer
 
 def searchInDB(word):
-    requests = {
+	#ключевое слово: запрос
+	requests = {
 		'': '',
 		'': '',
 		'': '',

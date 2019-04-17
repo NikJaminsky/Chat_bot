@@ -3,18 +3,22 @@ import connect_DB
 
 print("Chat Bot")
 
-print("Какой вопрос вас интересует?")
+print("РљР°РєРѕР№ РІРѕРїСЂРѕСЃ РІР°СЃ РёРЅС‚РµСЂРµСЃСѓРµС‚?")
 
 while True:
-	message = sendMessage(input())
+	message = logic.sendMessage(input())
 	
-	words = separateMessage(message)
+	words = logic.separateMessage(message)
 	
-	key_words = selectKeyWord(words)
+	key_words = logic.selectKeyWord(words)
 	
-	connectToDB(db_file, db_user, db_password, localhost)
-	
-	if :
-		pass
+	if not key_words:
+		req = connect_DB.searchInDB(key_words)
+		rezult = connect_DB.connectToDB(req)
+		patt = logic.selectPattern(key_words)
+		answer = logic.createAnswer(rezult, patt)
 	else:
-		answer = answerDontKnow()
+		answer = logic.answerDontKnow()
+		
+	print(logic.sendResponse(answer))
+	

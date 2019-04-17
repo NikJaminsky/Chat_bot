@@ -1,46 +1,59 @@
 
-#Отправить сообщение боту
+#РћС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ Р±РѕС‚Сѓ
 def sendMessage(text):
 	return text
 
-#Разделить сообщение на слова
+#Р Р°Р·РґРµР»РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ РЅР° СЃР»РѕРІР°
 def separateMessage(text):
 	words = text.split(' ')	
 	return words
 
-#Выделить ключевые слова
+#Р’С‹РґРµР»РёС‚СЊ РєР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°
 def selectKeyWord(words):
 	key_words = []
 	
-	for word in words:
-		if word in list_key_words:
-			key_words.append(word)
-			
-	return key_words
-
-#Выбрать шаблон ответа
-def selectPattern(key_words, patterns):
+	select_word = []
 	
-	for pattern in patterns:
+	for word in words:
+		if word in key_words:
+			select_word.append(word)
+			
+	return select_word
+
+#Р’С‹Р±СЂР°С‚СЊ С€Р°Р±Р»РѕРЅ РѕС‚РІРµС‚Р°
+def selectPattern(key_words):
+	patterns = {
+		'': 'Р’РѕС‚ СЂРµР·СѓР»СЊС‚Р°С‚',
+		'': 'РџСЂРµРґРѕСЃС‚Р°РІР»СЏСЋ РІСЃС‘ РЅРµРѕР±С…РѕРґРёРјРѕРµ',
+		'': 'Р Р°СЃРїРёСЃР°РЅРёРµ ',
+		'': 'РўРµР»РµС„РѕРЅ С„РёР»РёР°Р»Р°',
+		}
+
+	for key, value in patterns:
 		for word in key_words:
-			if word == pattern:
+			if word == key:
+				pattern = value
 				
 	return pattern
 
-#Сформировать ответ
+#РЎС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕС‚РІРµС‚
 def createAnswer(word, pattern):
 	answer = pattern.format(word)	
 	return answer
 
-#Уточнить запрос пользователя
+#РЈС‚РѕС‡РЅРёС‚СЊ Р·Р°РїСЂРѕСЃ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 def answerDontKnow():
-	patterns_ask_again = []
+	patterns_ask_again = [
+		'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, РїРѕРІС‚РѕСЂРёС‚Рµ Р·Р°РїСЂРѕСЃ',
+		'РџРѕР¶Р°Р»СѓР№СЃС‚Р°, СѓС‚РѕС‡РЅРёС‚Рµ РІРѕРїСЂРѕСЃ',
+		'РќРµ РјРѕРіР»Рё Р±С‹ СЃС„РѕСЂРјСѓР»РёСЂРѕРІР°С‚СЊ РёРЅР°С‡Рµ?'
+		]
 	
 	answer_again = random.choice(patterns_ask_again)
 	
 	return answer_again
 	
 
-#Отправить ответ пользователю	
+#РћС‚РїСЂР°РІРёС‚СЊ РѕС‚РІРµС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 def sendResponse(text):
 	return text
