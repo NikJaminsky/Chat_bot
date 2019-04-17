@@ -10,8 +10,10 @@ def separateMessage(text):
 
 #Выделить ключевые слова
 def selectKeyWord(words):
+	#Ключевые слова
 	key_words = []
 	
+	#Слова присутствующие в ключевых 
 	select_word = []
 	
 	for word in words:
@@ -48,7 +50,7 @@ def answerDontKnow():
 		'Пожалуйста, уточните вопрос',
 		'Не могли бы сформулировать иначе?'
 		]
-	
+	#Случайный выбор ответа
 	answer_again = random.choice(patterns_ask_again)
 	
 	return answer_again
