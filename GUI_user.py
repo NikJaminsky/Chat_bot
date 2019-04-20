@@ -65,13 +65,13 @@ class Form(QWidget):
 
         words = logic.separateMessage(message)
 
-        key_words = logic.selectKeyWord(words)
+        key_word, surname = logic.selectKeyWord(words)
         
-        if key_words != []:
-            req = connect_DB.searchInDB(key_words)
-            rezult = connect_DB.connectToDB(req)
-            patt = logic.selectPattern(key_words)
-            answer = logic.createAnswer(rezult, patt)
+        if key_word:
+            req = connect_DB.searchInDB(key_word)
+            rezult = connect_DB.connectToDB(req, surname)
+            patt = logic.selectPattern(key_word)
+            answer = logic.createAnswer(rezult, patt, surname)
         else:
             answer = logic.answerDontKnow()
         

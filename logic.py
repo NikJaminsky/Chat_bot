@@ -1,4 +1,5 @@
 import random
+from connect_DB import loadName
 
 #Отправить сообщение боту
 def sendMessage(text):
@@ -18,37 +19,42 @@ def selectKeyWord(words):
         'почта',
         'email'
         ]
+
+    select_word = ''
+    select_surname = ''
     
-    #Ключевые слова из сообщения пользователя
-    select_word = []
+    #Извлечь все ФИО
+    names = loadName() 
     
     for word in words:
         for key in key_words:
             if key == word:
-                select_word.append(word)
-          
-    return select_word
+                select_word = word
+        for tuple in names:
+            if word in tuple:
+                select_surname = tuple[1]
+        
+    return select_word, select_surname
 
 #Выбрать шаблон ответа
-def selectPattern(key_words):
+def selectPattern(key_word):
     #Шаблон ответа
     patterns = {
-        'номер': 'Телефон данного сотрудника, {}',
-        'телефон': 'Номер телефона {}',
-        'почта': 'Почта данного сотрудника {}',
-        'email': 'Запрашиваемый электронный адрес {}, выбранного сотрудника',
+        'номер': 'Телефон данного сотрудника, {0}',
+        'телефон': 'Номер телефона {0} {1}',
+        'почта': 'Почта {0} {1}',
+        'email': 'Запрашиваемый электронный адрес {1} {0}',
         }
 
     for key, value in patterns.items():
-        for word in key_words:
-            if word == key:
-                pattern = value
-                return pattern
+        if key_word == key:
+            pattern = value
+            return pattern
 
 #Сформировать ответ
-def createAnswer(word, pattern):
+def createAnswer(word, pattern, surname):
     patt = str(pattern)
-    answer = patt.format(word)
+    answer = patt.format(word, surname)
     return answer
 
 #Уточнить запрос пользователя
