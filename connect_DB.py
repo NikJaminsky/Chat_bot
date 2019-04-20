@@ -1,33 +1,28 @@
 #import psycopg2
 import sqlite3
 
-#Соединение с БД
-def connectToDB(request):#(request, db_file, db_user, db_password, localhost)
-    #conn = psycopg2.connect(dbname='db_file', 
-    #    user='db_user', 
-    #    password='db_password', 
-    #    host='localhost')
-    conn = sqlite3.connect('vault.db')
+#Соединение с базой данных
+def connectToDB(request):
+    conn = sqlite3.connect('db_users.db')
     cursor = conn.cursor()
     
     cursor.execute(str(request),'1')
-    #('''SELECT * 
-    #   FROM table''')
     answer = cursor.fetchone()
+    
     cursor.close()
     conn.close()
     return answer[0]
 
+#Выбрать запрос к базе данных
 def searchInDB(words):
     #ключевое слово: запрос
     requests = {
-        'хочу': 'SELECT path_source FROM files WHERE file_id=?',
-        'у': 'у',
-        'в': 'в',
-        'й': 'й',
-        'ц': 'ц',
+        'номер': 'SELECT number FROM users WHERE id=?',
+        'телефон': 'SELECT number FROM users WHERE id=?',
+        'почта': 'SELECT email FROM users WHERE id=?',
+        'email': 'SELECT email FROM users WHERE id=?',
     }
-
+    
     for key, value in requests.items():
         for word in words:
             if word == key:

@@ -32,7 +32,7 @@ class Form(QWidget):
         
         #Кнопка "Отправить сообщение"
         btn_send_message = QPushButton('Отправить сообщение', self)
-        btn_send_message.clicked.connect(self.allOperation)#te_chat.append(input_text)
+        btn_send_message.clicked.connect(self.allOperation)
         btn_send_message.resize(btn_send_message.sizeHint())
         grid.addWidget(btn_send_message, 3, 0, 1, 1)
         
@@ -50,17 +50,14 @@ class Form(QWidget):
         #self.setWindowIcon(QIcon('icon.png'))        
         self.show()
         
-
+    #Разместить окно по центру экрана
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())  
     
-    #def click(self):
-    #    self.te_chat.append(self.input_field.text())
-        #return input_field.text() 
-  
+    #Обработать запрос пользователя
     def allOperation(self):
         user = "Me>> " + self.input_field.text()
         self.te_chat.append(user)
@@ -74,7 +71,6 @@ class Form(QWidget):
             req = connect_DB.searchInDB(key_words)
             rezult = connect_DB.connectToDB(req)
             patt = logic.selectPattern(key_words)
-            print(patt)
             answer = logic.createAnswer(rezult, patt)
         else:
             answer = logic.answerDontKnow()
